@@ -106,6 +106,7 @@ class Weather extends React.Component {
       `${apiKeys.base}weather?lat=${lat}&lon=${lon}&units=metric&APPID=${apiKeys.key}`
     );
     const data = await api_call.json();
+    console.log(data)
     this.setState({
       lat: lat,
       lon: lon,
@@ -119,6 +120,7 @@ class Weather extends React.Component {
 
       // sunset: this.getTimeFromUnixTimeStamp(data.sys.sunset),
     });
+    console.log(this.state.main)
     switch (this.state.main) {
       case "Haze":
         this.setState({ icon: "CLEAR_DAY" });
@@ -154,6 +156,7 @@ class Weather extends React.Component {
 
   render() {
     if (this.state.temperatureC) {
+      console.log(this.state.main)
       return (
         <React.Fragment>
           <div className="city">
@@ -194,7 +197,7 @@ class Weather extends React.Component {
     } else {
       return (
         <React.Fragment>
-          <img src={loader} style={{ width: "50%", WebkitUserDrag: "none" }} />
+          <img src={loader} alt="" style={{ width: "50%", WebkitUserDrag: "none" }} />
           <h3 style={{ color: "white", fontSize: "22px", fontWeight: "600" }}>
             Detecting your location
           </h3>

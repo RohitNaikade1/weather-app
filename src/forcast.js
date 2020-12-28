@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import apiKeys from "./apiKeys";
 import ReactAnimatedWeather from "react-animated-weather";
@@ -11,8 +11,7 @@ function Forcast(props) {
   const search = (city) => {
     axios
       .get(
-        `${apiKeys.base}weather?q=${
-          city != "[object Object]" ? city : query
+        `${apiKeys.base}weather?q=${city !== "[object Object]" ? city : query
         }&units=metric&APPID=${apiKeys.key}`
       )
       .then((response) => {
@@ -26,12 +25,12 @@ function Forcast(props) {
         setError({ message: "Not Found", query: query });
       });
   };
-  function checkTime(i) {
-    if (i < 10) {
-      i = "0" + i;
-    } // add zero in front of numbers < 10
-    return i;
-  }
+  // function checkTime(i) {
+  //   if (i < 10) {
+  //     i = "0" + i;
+  //   } // add zero in front of numbers < 10
+  //   return i;
+  // }
 
   const defaults = {
     color: "white",
@@ -40,8 +39,8 @@ function Forcast(props) {
   };
 
   useEffect(() => {
-    search("Delhi");
-  }, []);
+    search("Pune");
+  });
 
   return (
     <div className="forecast">
@@ -67,6 +66,7 @@ function Forcast(props) {
             {" "}
             <img
               src="https://images.avishkaar.cc/workflow/newhp/search-white.png"
+              alt=""
               onClick={search}
             />
           </div>
@@ -80,6 +80,7 @@ function Forcast(props) {
                   {weather.name}, {weather.sys.country}
                 </p>
                 <img
+                  alt=""
                   className="temp"
                   src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`}
                 />
@@ -110,10 +111,10 @@ function Forcast(props) {
               </li>
             </div>
           ) : (
-            <li>
-              {error.query} {error.message}
-            </li>
-          )}
+              <li>
+                {error.query} {error.message}
+              </li>
+            )}
         </ul>
       </div>
     </div>
